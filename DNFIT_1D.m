@@ -35,8 +35,10 @@ for c=1:iteration
     for d=1:m+1
         A_step(:,d) = A_step(:,d)./g_step;
     end
-    wn_step = A_step \ y;
-
+    % 2 ols problems, use another ols to calculate wn
+    % wn_step = A_step \ y; 
+    % 1 ols problem, use W(1:m+1) as wn_step
+    wn_step = W(1:m+1);
     y_pre = A_step*wn_step;
     MSEs(c,1) = nmse(y_pre,y);
     if MSEs(c,1) < MSE_DNFIT_MIN
